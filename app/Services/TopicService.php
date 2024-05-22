@@ -35,6 +35,7 @@ readonly class TopicService
      */
     public function createTopic(array $validated): JsonResponse
     {
+        RedisService::flushAll();
         return response()->json($this->topicRepository->create($validated), 201);
     }
 
@@ -62,7 +63,7 @@ readonly class TopicService
      */
     public function updateTopic(array $validated, Topic $topic): JsonResponse
     {
-        RedisService::delete('topic_' . $topic->id);
+        RedisService::flushAll();
         return response()->json($this->topicRepository->update($validated, $topic), 200);
     }
 
@@ -71,7 +72,7 @@ readonly class TopicService
      */
     public function deleteTopic(Topic $topic): JsonResponse
     {
-        RedisService::delete('topic_' . $topic->id);
+        RedisService::flushAll();
         return response()->json($this->topicRepository->delete($topic), 200);
     }
 }
