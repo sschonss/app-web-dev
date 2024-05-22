@@ -32,7 +32,7 @@ class TopicRepository
     public function get(Topic $topic): Topic
     {
         try {
-            return Topic::find($topic->id);
+            return $topic;
         } catch (Exception $e) {
             throw new Exception('Error getting topic');
         }
